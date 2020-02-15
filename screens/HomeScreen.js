@@ -13,8 +13,8 @@ export default function HomeScreen() {
           <Image
             source={
               __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
+                ? require('../assets/images/10ms_logo_1024_dev.png')
+                : require('../assets/images/10ms_logo_1024.png')
             }
             style={styles.welcomeImage}
           />
@@ -23,21 +23,9 @@ export default function HomeScreen() {
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
           <Text style={styles.getStartedText}>
-            Hello World
+            Hello, This is weather application
           </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -56,18 +44,18 @@ HomeScreen.navigationOptions = {
   header: null,
 };
 
+// DEV 일때만 뜨는 공지화면
 function DevelopmentModeNotice() {
   if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
+    const goBlogButton = (
+      <Text onPress={handleBlogPress} style={styles.linkText}>
         Learn more
       </Text>
     );
 
     return (
       <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
+        개발환경입니다. {goBlogButton}
       </Text>
     );
   } else {
@@ -79,14 +67,8 @@ function DevelopmentModeNotice() {
   }
 }
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
-  );
+function handleBlogPress() {
+  WebBrowser.openBrowserAsync('https://github.com/0Ams/weather-app');
 }
 
 const styles = StyleSheet.create({
@@ -119,9 +101,6 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
   },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
@@ -165,14 +144,7 @@ const styles = StyleSheet.create({
   navigationFilename: {
     marginTop: 5,
   },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
+  linkText: {
     fontSize: 14,
     color: '#2e78b7',
   },
