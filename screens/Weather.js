@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View, Button } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 // import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons"
@@ -73,8 +73,6 @@ function Weather({ weatherName, temp }) {
                 <Text style={styles.title} >{weatherCases[weatherName].title}</Text>
                 <Text style={styles.subTitle}>{weatherCases[weatherName].subtitle}</Text>
             </View>
-
-
         </LinearGradient>
     )
 }
