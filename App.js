@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, AppRegistry, StyleSheet, Text, View, StatusBar } from 'react-native'
+import { ActivityIndicator, AppRegistry, Image, StyleSheet, Text, View, StatusBar } from 'react-native'
 import Weather from "./Weather"
 const API_KEY = "1c1ecff2a38af57394a8c2482f78b651"
 
@@ -17,15 +17,13 @@ export default class App extends Component {
   // 위치 정보 확인 후 isLoaded 정보 변경
   // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드.
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
+    this._getCurrentLocation();
+  }
+
+  _getCurrentLocation() {
+    return navigator.geolocation.getCurrentPosition(
       position => {
         this._getWeather(position.coords.latitude, position.coords.longitude);
-        
-      // 이거 하면 위치 허용 메시지 뜸
-      // this.setState({
-      //   isLoaded: true, // 위치 정보 확인되면 true로 변경
-      //   error: "Someting is wrong" //=? error라는 state가 설정됨
-      // });
       },
 
       error => {
@@ -55,6 +53,12 @@ export default class App extends Component {
         <StatusBar hidden={true} barStyle="dark-content" />
         { isLoaded ? (<Weather temp={Math.floor(temp - 273.15)} weatherName={name} />) : (
           <View style={styles.Loading} >
+            <Image
+              source={
+                require('./assets/images/10ms_logo_1024.png')
+              }
+              style={styles.LoadingImage}
+            />
             <Text style={styles.LoadingText}>Getting the weather</Text>
             {error ? <Text style={styles.ErrorText}>{error}</Text> : null}
           </View> 
@@ -76,12 +80,21 @@ const styles = StyleSheet.create({
   },
   Loading: {
     flex: 1,
-    backgroundColor: "#CCEEFF",
-    justifyContent: 'flex-end',
-    paddingLeft:25,
+    backgroundColor: "white",
+    justifyContent: 'center',
+    paddingLeft: 25,
   },
   LoadingText: {
     fontSize: 38,
+    color: 'rgba(96,100,109, 0.8)',
     marginBottom: 24
-  }
+  },
+  LoadingImage: {
+    width: 100,
+    height: 80,
+    alignItems: 'center',
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
+  },
 })
