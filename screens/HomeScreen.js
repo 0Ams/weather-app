@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import * as WebBrowser from 'expo-web-browser';
+import * as React from 'react'
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import * as WebBrowser from 'expo-web-browser'
 
-import { MonoText } from '../components/StyledText';
+import { MonoText } from '../components/StyledText'
 
 export default function HomeScreen() {
   return (
@@ -37,12 +37,12 @@ export default function HomeScreen() {
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 HomeScreen.navigationOptions = {
   header: null,
-};
+}
 
 // DEV 일때만 뜨는 공지화면
 function DevelopmentModeNotice() {
@@ -63,12 +63,12 @@ function DevelopmentModeNotice() {
       <Text style={styles.developmentModeText}>
         You are not in development mode: your app will run at full speed.
       </Text>
-    );
+    )
   }
 }
 
 function handleBlogPress() {
-  WebBrowser.openBrowserAsync('https://github.com/0Ams/weather-app');
+  WebBrowser.openBrowserAsync('https://github.com/0Ams/weather-app')
 }
 
 const styles = StyleSheet.create({
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
-});
+})

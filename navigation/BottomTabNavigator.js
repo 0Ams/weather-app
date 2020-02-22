@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import * as React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import TabBarIcon from '../components/TabBarIcon'
+import HomeScreen from '../screens/HomeScreen'
+import LinksScreen from '../screens/LinksScreen'
 
-const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const BottomTab = createBottomTabNavigator()
+const INITIAL_ROUTE_NAME = 'Home'
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
@@ -32,7 +32,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
     </BottomTab.Navigator>
-  );
+  )
 }
 
 function getHeaderTitle(route) {

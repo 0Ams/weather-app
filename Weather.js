@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react"
+import { StyleSheet, Text, View } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 // import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import PropTypes from "prop-types";
+import { MaterialCommunityIcons } from "@expo/vector-icons"
+import PropTypes from "prop-types"
 
 const weatherCases = {
     Rain: {
@@ -76,7 +76,7 @@ function Weather({ weatherName, temp }) {
 
 
         </LinearGradient>
-    );
+    )
 }
 
 Weather.propTypes = {
@@ -122,4 +122,4 @@ const styles = StyleSheet.create({
         marginBottom: 24,
         color: "white"
     }
-});
+})

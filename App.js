@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, AppRegistry, StyleSheet, Text, View, StatusBar } from 'react-native';
+import React, { Component } from 'react'
+import { ActivityIndicator, AppRegistry, StyleSheet, Text, View, StatusBar } from 'react-native'
 import Weather from "./Weather"
-const API_KEY = "1c1ecff2a38af57394a8c2482f78b651";
+const API_KEY = "1c1ecff2a38af57394a8c2482f78b651"
 
 export default class App extends Component {
   state = {
@@ -11,7 +11,7 @@ export default class App extends Component {
     error: null,
     temp: null,
     name: null
-  };
+  }
 
   // react-native는 navigator라는 오브젝트가 있다 like google chrome's navigator
   // 위치 정보 확인 후 isLoaded 정보 변경
@@ -33,7 +33,7 @@ export default class App extends Component {
           error: error
         })
       }
-    );
+    )
   }
 
   _getWeather = (lat, lon) => {
@@ -45,7 +45,7 @@ export default class App extends Component {
         name: json.weather[0].main,
         isLoaded: true
       })
-    });
+    })
   }
 
   render() {
@@ -60,7 +60,7 @@ export default class App extends Component {
           </View> 
         )}
       </View >
-    );
+    )
   }
 }
 
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
     fontSize: 38,
     marginBottom: 24
   }
-});
+})
