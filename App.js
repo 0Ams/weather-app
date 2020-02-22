@@ -1,67 +1,87 @@
-import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { ActivityIndicator, AppRegistry, StyleSheet, Text, View, StatusBar } from 'react-native';
+import Weather from "./Weather"
+const API_KEY = "1c1ecff2a38af57394a8c2482f78b651";
 
-import BottomTabNavigator from './navigation/BottomTabNavigator';
-import useLinking from './navigation/useLinking';
+export default class App extends Component {
+  state = {
+    // 날씨 정보 받았는지 알려주는 indicator 필요
+    // 위치 정보가 확인되면 isLoaded = true
+    isLoaded: false,
+    error: null,
+    temp: null,
+    name: null
+  };
 
-const Stack = createStackNavigator();
+  // react-native는 navigator라는 오브젝트가 있다 like google chrome's navigator
+  // 위치 정보 확인 후 isLoaded 정보 변경
+  // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드.
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this._getWeather(position.coords.latitude, position.coords.longitude);
+        
+      // 이거 하면 위치 허용 메시지 뜸
+      // this.setState({
+      //   isLoaded: true, // 위치 정보 확인되면 true로 변경
+      //   error: "Someting is wrong" //=? error라는 state가 설정됨
+      // });
+      },
 
-export default function App(props) {
-  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
-
-  // Load any resources or data that we need prior to rendering the app
-  React.useEffect(() => {
-    async function loadResourcesAndDataAsync() {
-      try {
-        SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
-
-        // Load fonts
-        await Font.loadAsync({
-          ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        });
-      } catch (e) {
-        // We might want to provide this error information to an error reporting service
-        console.warn(e);
-      } finally {
-        setLoadingComplete(true);
-        SplashScreen.hide();
+      error => {
+        this.setState({
+          error: error
+        })
       }
-    }
+    );
+  }
 
-    loadResourcesAndDataAsync();
-  }, []);
+  _getWeather = (lat, lon) => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}`)
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        temp: json.main.temp,
+        name: json.weather[0].main,
+        isLoaded: true
+      })
+    });
+  }
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return null;
-  } else {
+  render() {
+    const { isLoaded, error, temp, name } = this.state;
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <View style={styles.Container}>
+        <StatusBar hidden={true} barStyle="dark-content" />
+        { isLoaded ? (<Weather temp={Math.floor(temp - 273.15)} weatherName={name} />) : (
+          <View style={styles.Loading} >
+            <Text style={styles.LoadingText}>Getting the weather</Text>
+            {error ? <Text style={styles.ErrorText}>{error}</Text> : null}
+          </View> 
+        )}
+      </View >
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  Container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
+  ErrorText: {
+    color: "red",
+    backgroundColor: "transparent",
+    marginBottom: 40
+  },
+  Loading: {
+    flex: 1,
+    backgroundColor: "#CCEEFF",
+    justifyContent: 'flex-end',
+    paddingLeft:25,
+  },
+  LoadingText: {
+    fontSize: 38,
+    marginBottom: 24
+  }
 });
