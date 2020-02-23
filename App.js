@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 import LoadingScreen from './screens/LoadingScreen';
 import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailScreen';
 
 const AppNavigator = createStackNavigator(
   {
