@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { StyleSheet, Text, View, Button } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
-// import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons"
 import PropTypes from "prop-types"
 
@@ -81,7 +80,7 @@ Weather.propTypes = {
     weatherName: PropTypes.string.isRequired
 }
 
-export default Weather;
+export default Weather
 
 const styles = StyleSheet.create({
     container: {

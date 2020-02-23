@@ -17,13 +17,13 @@ export default class LoadingScreen extends Component {
   // 위치 정보 확인 후 isLoaded 정보 변경
   // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드.
   componentDidMount() {
-    this._getCurrentLocation();
+    this._getCurrentLocation()
   }
 
   _getCurrentLocation() {
     return navigator.geolocation.getCurrentPosition(
       position => {
-        this._getWeather(position.coords.latitude, position.coords.longitude);
+        this._getWeather(position.coords.latitude, position.coords.longitude)
       },
 
       error => {
@@ -38,6 +38,8 @@ export default class LoadingScreen extends Component {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}`)
     .then(response => response.json())
     .then(json => {
+      console.log('=== Info: ', json)
+
       this.setState({
         temp: json.main.temp,
         name: json.weather[0].main,
@@ -47,7 +49,7 @@ export default class LoadingScreen extends Component {
   }
 
   render() {
-    const { isLoaded, error, temp, name } = this.state;
+    const { isLoaded, error, temp, name } = this.state
     return (
       <View style={styles.Container}>
         <StatusBar hidden={true} barStyle="dark-content" />
